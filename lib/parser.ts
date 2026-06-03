@@ -11,7 +11,8 @@ export interface DetectedColumn {
   type: ColumnType;
   sample: string[];          // first 3 non-empty values
   nullCount: number;
-  mappedAs?: string;         // user-assigned name if "unknown"
+  mappedAs?: string;         // canonical field name (user or AI assigned)
+  aiSuggested?: boolean;     // true if mappedAs was set by Gemini
 }
 
 export interface ParsedDataset {
