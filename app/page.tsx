@@ -45,17 +45,17 @@ export default function OverviewPage() {
             <StatCard
               title="Positive Sentiment"
               value={stats.sentimentBreakdown.positive}
-              color="bg-green-50"
+              accent="var(--color-rgc-teal)"
             />
             <StatCard
               title="Neutral Sentiment"
               value={stats.sentimentBreakdown.neutral}
-              color="bg-yellow-50"
+              accent="var(--color-rgc-indigo)"
             />
             <StatCard
               title="Negative Sentiment"
               value={stats.sentimentBreakdown.negative}
-              color="bg-red-50"
+              accent="var(--color-rgc-orchid)"
             />
           </div>
         </>
