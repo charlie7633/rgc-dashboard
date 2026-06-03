@@ -130,7 +130,7 @@ export function detectIssues(dataset: ParsedDataset): DataIssue[] {
 // ── Apply fixes ────────────────────────────────────────────────────────────
 
 export function applyFixes(dataset: ParsedDataset, issues: DataIssue[]): CleanResult {
-  let rows = dataset.rows.map((r) => ({ ...r, _status: "clean" }));
+  let rows: Record<string, string>[] = dataset.rows.map((r) => ({ ...r, _status: "clean" }));
   const fixLog: string[] = [];
 
   issues.forEach((issue) => {
