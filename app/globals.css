@@ -6,26 +6,46 @@
   --color-foreground: #0A0A0A;
 
   /* RGC palette */
-  --color-rgc-blue:     #1D1B84;
+  --color-rgc-blue: #1D1B84;
   --color-rgc-electric: #5A67D8;
-  --color-rgc-indigo:   #7F6CB1;
-  --color-rgc-orchid:   #C061B9;
-  --color-rgc-fuchsia:  #E289C1;
-  --color-rgc-teal:     #4EA4B5;
-  --color-rgc-pill:     #0052CC;
+  --color-rgc-indigo: #7F6CB1;
+  --color-rgc-orchid: #C061B9;
+  --color-rgc-fuchsia: #E289C1;
+  --color-rgc-teal: #4EA4B5;
+  --color-rgc-pill: #0052CC;
 
   /* Sidebar */
-  --color-sidebar-bg:   #0A0A0A;
+  --color-sidebar-bg: #0A0A0A;
   --color-sidebar-text: #94a3b8;
 
   /* Cards */
-  --color-card:         #ffffff;
-  --color-card-border:  #E2E8F0;
+  --color-card: #ffffff;
+  --color-card-border: #E2E8F0;
 
   /* Status badges */
-  --color-status-clean:  #dcfce7;
+  --color-status-clean: #dcfce7;
   --color-status-filled: #fefce8;
-  --color-status-error:  #fff5f5;
+  --color-status-error: #fff5f5;
+
+  /* ── Text colours — change these to restyle all text globally ── */
+  --text-primary: #0A0A0A;
+  /* page titles, stat values */
+  --text-secondary: #334155;
+  /* body text, table rows */
+  --text-muted: #94a3b8;
+  /* labels, subtitles, timestamps */
+  --text-accent: #5A67D8;
+  /* links, active labels */
+  --text-inverse: #ffffff;
+  /* text on dark backgrounds */
+  --text-danger: #dc2626;
+  /* errors, negative deltas */
+  --text-success: #15803d;
+  /* positive deltas, clean badges */
+  --text-warning: #854d0e;
+  /* neutral sentiment, filled badges */
+  --text-ai: #854d0e;
+  /* AI panel text */
 }
 
 body {
