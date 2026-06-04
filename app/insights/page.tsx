@@ -115,7 +115,7 @@ export default function InsightsPage() {
             <div>
               <h2 className="text-xl font-bold" style={{ color: BRAND_COLOURS[current.brand] }}>{current.brand}</h2>
               <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
-                Based on {current.reviewCount} video reviews · Gemini gemini-1.5-flash
+                Based on {current.reviewCount} video reviews · Gemini 2.0 Flash
               </p>
             </div>
             <div className="text-center">

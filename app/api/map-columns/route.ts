@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       columns: { key: string; sample: string[] }[];
     };
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const columnList = columns
       .map((c) => `"${c.key}": samples = [${c.sample.slice(0, 3).map((s) => `"${s}"`).join(", ")}]`)
