@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { loadAll, EnrichedTranscript } from "@/lib/rgc-data";
+import { loadAll, EnrichedTranscript, RawProduct } from "@/lib/rgc-data";
 
 export async function GET() {
   try {
@@ -12,13 +12,13 @@ export async function GET() {
       reviewCounts[t.productId].count++;
       if (t.rating) reviewCounts[t.productId].ratings.push(t.rating);
     });
-    Object.entries(reviewCounts).forEach(([id, v]) => {
+    Object.entries(reviewCounts).forEach(([, v]) => {
       v.avgRating = v.ratings.length
         ? Math.round((v.ratings.reduce((s, r) => s + r, 0) / v.ratings.length) * 10) / 10
         : 0;
     });
 
-    return NextResponse.json(products.map((p) => ({
+    return NextResponse.json((products as RawProduct[]).map((p) => ({
       productId: p.productId,
       brand: p.brand,
       productName: p.productName,
