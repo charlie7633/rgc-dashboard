@@ -110,58 +110,77 @@ export default function BrandsPage() {
       <div className="grid grid-cols-3 gap-6">
         {/* Brand list */}
         <div className="col-span-1 space-y-2">
-          <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "var(--text-muted)" }}>Reviewed brands</p>
-          {reviewed.map((b) => (
-            <button key={b.name} onClick={() => setSelected(b)}
-              className="w-full text-left rounded-xl px-4 py-3 transition-all"
-              style={{
-                background: selected?.name === b.name ? "#eef2ff" : "var(--color-card)",
-                border: selected?.name === b.name ? "2px solid var(--color-rgc-electric)" : "1px solid var(--color-card-border)",
-              }}>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: BRAND_COLOURS[b.name] ?? "#94a3b8" }} />
-                  <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>{b.name}</span>
+          <div className="mb-3">
+            <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Reviewed brands</p>
+            <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>Click any card to see full details →</p>
+          </div>
+          {reviewed.map((b) => {
+            const isActive = selected?.name === b.name;
+            return (
+              <button key={b.name} onClick={() => setSelected(b)} title="Click to view brand details"
+                className="w-full text-left rounded-xl px-4 py-3 transition-all cursor-pointer"
+                style={{
+                  background: isActive ? "#eef2ff" : "var(--color-card)",
+                  border: isActive ? "2px solid var(--color-rgc-electric)" : "1px solid var(--color-card-border)",
+                  boxShadow: isActive ? "0 2px 8px rgba(90,103,216,0.12)" : undefined,
+                }}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full" style={{ background: BRAND_COLOURS[b.name] ?? "#94a3b8" }} />
+                    <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>{b.name}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold" style={{ color: "var(--color-rgc-electric)" }}>{b.breakthroughScore.toFixed(1)}</span>
+                    <span className="text-sm" style={{ color: isActive ? "var(--color-rgc-electric)" : "var(--text-muted)" }}>›</span>
+                  </div>
                 </div>
-                <span className="text-xs font-bold" style={{ color: "var(--color-rgc-electric)" }}>{b.breakthroughScore.toFixed(1)}</span>
-              </div>
-              <div className="mt-2 flex gap-3 text-xs" style={{ color: "var(--text-muted)" }}>
-                <span>{b.transcriptCount} reviews</span>
-                <span>⭐ {b.avgRating}/5</span>
-                <span>{b.wouldBuyAfterRate}% buy after</span>
-              </div>
-              {b.transcriptCount > 0 && (
-                <div className="mt-2">
-                  <SentimentBar breakdown={b.sentimentBreakdown} total={b.transcriptCount} showLegend />
+                <div className="mt-2 flex gap-3 text-xs" style={{ color: "var(--text-muted)" }}>
+                  <span>{b.transcriptCount} reviews</span>
+                  <span>⭐ {b.avgRating}/5</span>
+                  <span>{b.wouldBuyAfterRate}% buy after</span>
                 </div>
-              )}
-            </button>
-          ))}
+                {b.transcriptCount > 0 && (
+                  <div className="mt-2">
+                    <SentimentBar breakdown={b.sentimentBreakdown} total={b.transcriptCount} showLegend />
+                  </div>
+                )}
+              </button>
+            );
+          })}
 
-          <p className="text-xs font-semibold uppercase tracking-wide mt-5 mb-3" style={{ color: "var(--text-muted)" }}>Competitive context</p>
-          {competitors.map((b) => (
-            <button key={b.name} onClick={() => setSelected(b)}
-              className="w-full text-left rounded-xl px-4 py-3 transition-all"
-              style={{
-                background: selected?.name === b.name ? "#f8fafc" : "var(--color-card)",
-                border: selected?.name === b.name ? "1.5px solid #94a3b8" : "1px solid var(--color-card-border)",
-                opacity: 0.85,
-              }}>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-                  <span className="text-sm font-medium" style={{ color: "var(--text-secondary)" }}>{b.name}</span>
+          <div className="mt-5 mb-3">
+            <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Competitive context</p>
+            <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>No review data — included for comparison</p>
+          </div>
+          {competitors.map((b) => {
+            const isActive = selected?.name === b.name;
+            return (
+              <button key={b.name} onClick={() => setSelected(b)} title="Click to view brand details"
+                className="w-full text-left rounded-xl px-4 py-3 transition-all cursor-pointer"
+                style={{
+                  background: isActive ? "#f8fafc" : "var(--color-card)",
+                  border: isActive ? "1.5px solid #94a3b8" : "1px solid var(--color-card-border)",
+                  opacity: 0.85,
+                }}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+                    <span className="text-sm font-medium" style={{ color: "var(--text-secondary)" }}>{b.name}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold text-slate-400">{b.breakthroughScore.toFixed(1)}</span>
+                    <span className="text-sm text-slate-400">›</span>
+                  </div>
                 </div>
-                <span className="text-xs font-bold text-slate-400">{b.breakthroughScore.toFixed(1)}</span>
-              </div>
-              <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>{b.productCount} products · no transcripts</p>
-            </button>
-          ))}
+                <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>{b.productCount} products · no review data</p>
+              </button>
+            );
+          })}
         </div>
 
         {/* Brand detail */}
         {selected && (
-          <div className="col-span-2 space-y-4">
+          <div className="col-span-2 space-y-4 pl-6" style={{ borderLeft: "2px solid var(--color-card-border)" }}>
             {/* Header card */}
             <div className="rounded-2xl p-6" style={{ background: "var(--color-card)", border: "1px solid var(--color-card-border)" }}>
               <div className="flex items-start justify-between mb-3">
