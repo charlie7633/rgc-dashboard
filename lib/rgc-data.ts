@@ -110,23 +110,38 @@ export interface BrandSummary {
 // ── CSV parser ─────────────────────────────────────────────────────────────
 
 function parseCSV<T>(text: string): T[] {
-  const lines = text.trim().split(/\r?\n/);
-  const headers = parseCSVLine(lines[0]);
-  return lines.slice(1).map((line) => {
-    const vals = parseCSVLine(line);
-    return Object.fromEntries(headers.map((h, i) => [h, vals[i] ?? ""])) as T;
-  });
+  // Character-by-character parser that handles multi-line quoted fields
+  const headers = parseCSVLine(text, 0);
+  let pos = headers.end;
+  const rows: T[] = [];
+  while (pos < text.length) {
+    // skip \r\n or \n
+    if (text[pos] === "\r") pos++;
+    if (text[pos] === "\n") pos++;
+    if (pos >= text.length) break;
+    const row = parseCSVLine(text, pos);
+    pos = row.end;
+    if (row.values.some(v => v !== "")) {
+      rows.push(Object.fromEntries(headers.values.map((h, i) => [h, row.values[i] ?? ""])) as T);
+    }
+  }
+  return rows;
 }
 
-function parseCSVLine(line: string): string[] {
+function parseCSVLine(text: string, start: number): { values: string[]; end: number } {
   const result: string[] = [];
   let cur = "";
   let inQuote = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
+  let i = start;
+  for (; i < text.length; i++) {
+    const ch = text[i];
     if (ch === '"') {
-      if (inQuote && line[i + 1] === '"') { cur += '"'; i++; }
+      if (inQuote && text[i + 1] === '"') { cur += '"'; i++; }
       else inQuote = !inQuote;
+    } else if (ch === "\n" && !inQuote) {
+      break;
+    } else if (ch === "\r" && !inQuote) {
+      break;
     } else if (ch === "," && !inQuote) {
       result.push(cur.trim());
       cur = "";
@@ -135,7 +150,7 @@ function parseCSVLine(line: string): string[] {
     }
   }
   result.push(cur.trim());
-  return result;
+  return { values: result, end: i };
 }
 
 // ── Loaders ────────────────────────────────────────────────────────────────
