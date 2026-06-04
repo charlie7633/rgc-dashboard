@@ -1,17 +1,15 @@
 import { NextResponse } from "next/server";
-import { loadProducts, loadReviews, loadReviewers, computeStats } from "@/lib/data";
+import { loadAll } from "@/lib/rgc-data";
 
 export async function GET() {
   try {
-    const [products, reviews, reviewers] = await Promise.all([
-      loadProducts(),
-      loadReviews(),
-      loadReviewers(),
-    ]);
+    const { transcripts, products, brands } = loadAll();
 
-    const stats = computeStats(products, reviews, reviewers);
-
-    return NextResponse.json({ products, reviews, reviewers, stats });
+    return NextResponse.json({
+      transcriptCount: transcripts.length,
+      productCount: products.length,
+      brandCount: brands.length,
+    });
   } catch (error) {
     console.error("Data load error:", error);
     return NextResponse.json({ error: "Failed to load data" }, { status: 500 });
