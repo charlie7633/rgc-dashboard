@@ -76,14 +76,29 @@ export default function ReviewersPage() {
       </div>
 
       {/* Stat cards */}
+      {/* Tier explainer */}
+      <div className="mb-4 rounded-xl px-4 py-3 text-xs" style={{ background: "#f8fafc", border: "1px solid var(--color-card-border)", color: "var(--text-muted)" }}>
+        <span className="font-semibold" style={{ color: "var(--text-secondary)" }}>What are reviewer tiers? </span>
+        Reviewers are rated by the platform based on their track record.{" "}
+        <span style={{ color: TIER_COLOURS["TIER_1"] }}>Tier 1</span> = most experienced and trusted (fewest, highest quality reviews) ·{" "}
+        <span style={{ color: TIER_COLOURS["TIER_2"] }}>Tier 2</span> = established reviewers with a solid history ·{" "}
+        <span style={{ color: TIER_COLOURS["TIER_3"] }}>Tier 3</span> = newer or developing reviewers
+      </div>
       <div className="grid grid-cols-3 gap-4 mb-6">
-        {Object.entries(tierCounts).sort().map(([tier, count]) => (
-          <div key={tier} className="rounded-xl p-4" style={{ background: "var(--color-card)", border: `2px solid ${TIER_COLOURS[tier] ?? "#94a3b8"}` }}>
-            <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: TIER_COLOURS[tier] ?? "#94a3b8" }}>{tier.replace("_", " ")}</p>
-            <p className="text-3xl font-black mt-1" style={{ color: "var(--text-primary)" }}>{count}</p>
-            <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>reviewers</p>
-          </div>
-        ))}
+        {Object.entries(tierCounts).sort().map(([tier, count]) => {
+          const descriptions: Record<string, string> = {
+            TIER_1: "Most trusted reviewers",
+            TIER_2: "Established reviewers",
+            TIER_3: "Developing reviewers",
+          };
+          return (
+            <div key={tier} className="rounded-xl p-4" style={{ background: "var(--color-card)", border: `2px solid ${TIER_COLOURS[tier] ?? "#94a3b8"}` }}>
+              <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: TIER_COLOURS[tier] ?? "#94a3b8" }}>{tier.replace("_", " ")}</p>
+              <p className="text-3xl font-black mt-1" style={{ color: "var(--text-primary)" }}>{count}</p>
+              <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>{descriptions[tier] ?? "reviewers"}</p>
+            </div>
+          );
+        })}
       </div>
 
       <div className="grid grid-cols-2 gap-4 mb-4">

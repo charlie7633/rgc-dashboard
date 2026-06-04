@@ -112,7 +112,7 @@ export default function InsightsPage() {
           </div>
         </div>
 
-        {/* Themes + signals + concerns */}
+        {/* Themes + purchase intent + audience profile */}
         <div className="grid grid-cols-3 gap-4">
           <div className="rounded-xl p-5" style={{ background: "var(--color-card)", border: "1px solid var(--color-card-border)" }}>
             <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "var(--text-muted)" }}>Top themes</p>
@@ -127,25 +127,13 @@ export default function InsightsPage() {
           </div>
 
           <div className="rounded-xl p-5" style={{ background: "var(--color-card)", border: "1px solid var(--color-card-border)" }}>
-            <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "#15803d" }}>✓ Positive signals</p>
-            <ul className="space-y-2">
-              {current.positiveSignals.map((s, i) => (
-                <li key={i} className="flex gap-2 text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                  <span className="shrink-0 mt-0.5" style={{ color: "#15803d" }}>●</span> {s}
-                </li>
-              ))}
-            </ul>
+            <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "var(--text-muted)" }}>Purchase intent analysis</p>
+            <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>{current.purchaseIntentInsight}</p>
           </div>
 
           <div className="rounded-xl p-5" style={{ background: "var(--color-card)", border: "1px solid var(--color-card-border)" }}>
-            <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "#dc2626" }}>⚠ Concerns</p>
-            <ul className="space-y-2">
-              {current.concerns.map((c, i) => (
-                <li key={i} className="flex gap-2 text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                  <span className="shrink-0 mt-0.5" style={{ color: "#dc2626" }}>●</span> {c}
-                </li>
-              ))}
-            </ul>
+            <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "var(--text-muted)" }}>Audience profile</p>
+            <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>{current.audienceProfile}</p>
           </div>
         </div>
 
@@ -155,16 +143,30 @@ export default function InsightsPage() {
           <p className="text-sm italic leading-relaxed" style={{ color: "#92400e" }}>"{current.standoutQuote}"</p>
         </div>
 
-        {/* Bottom row */}
+        {/* Bottom row — positive signals, concerns, commercial opportunity */}
         <div className="grid grid-cols-3 gap-4">
-          <div className="rounded-xl p-5" style={{ background: "var(--color-card)", border: "1px solid var(--color-card-border)" }}>
-            <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "var(--text-muted)" }}>Purchase intent analysis</p>
-            <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>{current.purchaseIntentInsight}</p>
+          <div className="rounded-xl p-5" style={{ background: "#f0fdf4", border: "1px solid #bbf7d0" }}>
+            <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "#15803d" }}>✓ Positive signals</p>
+            <ul className="space-y-2">
+              {current.positiveSignals.map((s, i) => (
+                <li key={i} className="flex gap-2 text-xs leading-relaxed" style={{ color: "#166534" }}>
+                  <span className="shrink-0 mt-0.5" style={{ color: "#15803d" }}>●</span> {s}
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="rounded-xl p-5" style={{ background: "var(--color-card)", border: "1px solid var(--color-card-border)" }}>
-            <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "var(--text-muted)" }}>Audience profile</p>
-            <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>{current.audienceProfile}</p>
+
+          <div className="rounded-xl p-5" style={{ background: "#fff1f2", border: "1px solid #fecdd3" }}>
+            <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "#dc2626" }}>⚠ Concerns</p>
+            <ul className="space-y-2">
+              {current.concerns.map((c, i) => (
+                <li key={i} className="flex gap-2 text-xs leading-relaxed" style={{ color: "#991b1b" }}>
+                  <span className="shrink-0 mt-0.5" style={{ color: "#dc2626" }}>●</span> {c}
+                </li>
+              ))}
+            </ul>
           </div>
+
           <div className="rounded-xl p-5" style={{ background: "#eef2ff", border: "1px solid #c7d2fe" }}>
             <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "#4338ca" }}>Commercial opportunity</p>
             <p className="text-xs leading-relaxed" style={{ color: "#3730a3" }}>{current.commercialOpportunity}</p>
