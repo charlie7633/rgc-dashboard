@@ -28,15 +28,24 @@ const BRAND_COLOURS: Record<string, string> = {
   "Dalston's": "#94a3b8",
 };
 
-function SentimentBar({ breakdown, total }: { breakdown: Record<string, number>; total: number }) {
+function SentimentBar({ breakdown, total, showLegend = false }: { breakdown: Record<string, number>; total: number; showLegend?: boolean }) {
   const pos = breakdown["POSITIVE"] ?? 0;
   const neg = breakdown["NEGATIVE"] ?? 0;
   const neu = (breakdown["NEUTRAL"] ?? 0) + (breakdown["MIXED"] ?? 0);
   return (
-    <div className="flex rounded-full overflow-hidden h-2 w-full">
-      <div style={{ width: `${(pos / total) * 100}%`, background: "#5A67D8" }} title={`Positive: ${pos}`} />
-      <div style={{ width: `${(neu / total) * 100}%`, background: "#fbbf24" }} title={`Neutral/Mixed: ${neu}`} />
-      <div style={{ width: `${(neg / total) * 100}%`, background: "#f87171" }} title={`Negative: ${neg}`} />
+    <div>
+      <div className="flex rounded-full overflow-hidden h-2 w-full">
+        <div style={{ width: `${(pos / total) * 100}%`, background: "#5A67D8" }} title={`Positive: ${pos}`} />
+        <div style={{ width: `${(neu / total) * 100}%`, background: "#fbbf24" }} title={`Neutral/Mixed: ${neu}`} />
+        <div style={{ width: `${(neg / total) * 100}%`, background: "#f87171" }} title={`Negative: ${neg}`} />
+      </div>
+      {showLegend && (
+        <div className="flex gap-3 mt-1 text-xs" style={{ color: "var(--text-muted)" }}>
+          <span style={{ color: "#5A67D8" }}>● Positive</span>
+          <span style={{ color: "#fbbf24" }}>● Neutral</span>
+          <span style={{ color: "#f87171" }}>● Negative</span>
+        </div>
+      )}
     </div>
   );
 }
@@ -123,7 +132,7 @@ export default function BrandsPage() {
               </div>
               {b.transcriptCount > 0 && (
                 <div className="mt-2">
-                  <SentimentBar breakdown={b.sentimentBreakdown} total={b.transcriptCount} />
+                  <SentimentBar breakdown={b.sentimentBreakdown} total={b.transcriptCount} showLegend />
                 </div>
               )}
             </button>

@@ -92,7 +92,19 @@ export default function OverviewPage() {
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div className="rounded-2xl p-6" style={{ background: "var(--color-card)", border: "1px solid var(--color-card-border)" }}>
             <p className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>Breakthrough Score — all 9 brands</p>
-            <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>Grey = competitive context (no transcripts). Trip leads the category.</p>
+            <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>How fast-growing and well-known each brand is (0–100). Higher = more momentum.</p>
+            <div className="flex flex-wrap gap-x-4 gap-y-1 mb-4">
+              {Object.entries(BRAND_COLOURS).map(([brand, colour]) => (
+                <span key={brand} className="flex items-center gap-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
+                  <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: colour }} />
+                  {brand}
+                </span>
+              ))}
+              <span className="flex items-center gap-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
+                <span className="inline-block w-2.5 h-2.5 rounded-full bg-slate-200" />
+                Competitor (no review data)
+              </span>
+            </div>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={btsData} margin={{ top: 0, right: 8, left: -16, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
@@ -109,7 +121,8 @@ export default function OverviewPage() {
           </div>
 
           <div className="rounded-2xl p-6" style={{ background: "var(--color-card)", border: "1px solid var(--color-card-border)" }}>
-            <p className="text-sm font-semibold mb-4" style={{ color: "var(--text-primary)" }}>Purchase intent gap — reviewed brands</p>
+            <p className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>Reviewed brands at a glance</p>
+            <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>Bar = % of reviews with positive sentiment · ⭐ = average rating out of 5 · buy↑ = % who would buy again after trying</p>
             <div className="space-y-3">
               {reviewed.map((b) => {
                 const pos = b.sentimentBreakdown["POSITIVE"] ?? 0;
