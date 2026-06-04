@@ -142,7 +142,17 @@ function parseCSVLine(line: string): string[] {
 
 const DATA_DIR = path.join(process.cwd(), "data");
 
-let _cache: ReturnType<typeof loadAll> | null = null;
+interface DataCache {
+  transcripts: EnrichedTranscript[];
+  users: RawUser[];
+  products: RawProduct[];
+  brands: RawBrand[];
+  brandSummaries: BrandSummary[];
+  productMap: Map<string, RawProduct>;
+  userMap: Map<string, RawUser>;
+}
+
+let _cache: DataCache | null = null;
 
 export function loadAll() {
   if (_cache) return _cache;
