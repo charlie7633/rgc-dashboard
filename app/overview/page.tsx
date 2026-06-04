@@ -108,7 +108,7 @@ export default function OverviewPage() {
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={btsData} margin={{ top: 0, right: 8, left: -16, bottom: 40 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="name" tick={{ fontSize: 9, fill: "#64748b", angle: -35, textAnchor: "end" }} interval={0} />
+                <XAxis dataKey="name" angle={-35} textAnchor="end" interval={0} tick={{ fontSize: 9, fill: "#64748b" }} />
                 <YAxis domain={[0, 60]} ticks={[0, 20, 40, 60]} tick={{ fontSize: 9, fill: "#64748b" }} />
                 <Tooltip contentStyle={{ fontSize: 11, borderRadius: 8 }} formatter={(v: number) => [v, "Breakthrough Score"]} />
                 <Bar dataKey="score" radius={[4, 4, 0, 0]}>
