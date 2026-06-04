@@ -108,8 +108,8 @@ export default function OverviewPage() {
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={btsData} margin={{ top: 0, right: 8, left: -16, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="name" tick={{ fontSize: 9, fill: "#94a3b8" }} />
-                <YAxis domain={[0, 70]} tick={{ fontSize: 9, fill: "#94a3b8" }} />
+                <XAxis dataKey="name" tick={{ fontSize: 9, fill: "#64748b" }} />
+                <YAxis domain={[0, 60]} ticks={[0, 20, 40, 60]} tick={{ fontSize: 9, fill: "#64748b" }} />
                 <Tooltip contentStyle={{ fontSize: 11, borderRadius: 8 }} formatter={(v: number) => [v, "Breakthrough Score"]} />
                 <Bar dataKey="score" radius={[4, 4, 0, 0]}>
                   {btsData.map((entry, i) => (
@@ -126,13 +126,15 @@ export default function OverviewPage() {
             <div className="space-y-3">
               {reviewed.map((b) => {
                 const pos = b.sentimentBreakdown["POSITIVE"] ?? 0;
+                const posPct = Math.round((pos / b.transcriptCount) * 100);
                 return (
                   <div key={b.name} className="flex items-center gap-3">
                     <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: BRAND_COLOURS[b.name] }} />
                     <span className="text-sm font-medium w-28 shrink-0" style={{ color: "var(--text-secondary)" }}>{b.name}</span>
                     <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "#f1f5f9" }}>
-                      <div className="h-full rounded-full" style={{ width: `${(pos / b.transcriptCount) * 100}%`, background: BRAND_COLOURS[b.name] }} />
+                      <div className="h-full rounded-full" style={{ width: `${posPct}%`, background: BRAND_COLOURS[b.name] }} />
                     </div>
+                    <span className="text-xs w-8 text-right shrink-0 font-medium" style={{ color: BRAND_COLOURS[b.name] }}>{posPct}%</span>
                     <span className="text-xs w-10 text-right shrink-0" style={{ color: "var(--text-muted)" }}>⭐{b.avgRating}</span>
                     <span className="text-xs w-14 text-right shrink-0" style={{ color: "var(--text-muted)" }}>{b.wouldBuyAfterRate}% buy↑</span>
                   </div>
@@ -140,8 +142,8 @@ export default function OverviewPage() {
               })}
             </div>
             <div className="mt-4 rounded-xl p-3" style={{ background: "#fefce8", border: "1px solid #fde68a" }}>
-              <p className="text-xs font-semibold mb-0.5" style={{ color: "#854d0e" }}>✦ Key insight</p>
-              <p className="text-xs leading-relaxed" style={{ color: "#92400e" }}>
+              <p className="text-sm font-semibold mb-1" style={{ color: "#854d0e" }}>✦ Key insight</p>
+              <p className="text-sm leading-relaxed" style={{ color: "#92400e" }}>
                 Trip (competitor) leads with BTS 45.1 — above all reviewed brands. Fix8 has the most reviews (45) yet scores below Trip and DASH, suggesting a discovery gap despite strong consumer satisfaction.
               </p>
             </div>

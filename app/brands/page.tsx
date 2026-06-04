@@ -93,8 +93,8 @@ export default function BrandsPage() {
         <ResponsiveContainer width="100%" height={220}>
           <BarChart data={btsData} margin={{ top: 4, right: 8, left: -16, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-            <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#94a3b8" }} />
-            <YAxis domain={[0, 70]} tick={{ fontSize: 10, fill: "#94a3b8" }} />
+            <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#64748b" }} />
+            <YAxis domain={[0, 60]} ticks={[0, 20, 40, 60]} tick={{ fontSize: 10, fill: "#64748b" }} />
             <Tooltip contentStyle={{ fontSize: 11, borderRadius: 8, border: "1px solid #e2e8f0" }} />
             <Legend wrapperStyle={{ fontSize: 10 }} />
             <Bar dataKey="breakthrough" name="Breakthrough" radius={[4, 4, 0, 0]}
