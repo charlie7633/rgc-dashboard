@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
 Summary: ${t.transcription?.summary ?? ""}`;
     }).join("\n\n");
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-preview-05-20" });
 
     const prompt = `You are a senior consumer insights analyst working with brand and retail data. You have been given ${brandTranscripts.length} video review transcripts for the brand "${brand}" in the functional soft drinks category.
 
