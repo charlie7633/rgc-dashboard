@@ -90,6 +90,38 @@ My general approach was to use Claude and Gemini as junior programmers: give the
 
 ---
 
+## After external review — 4th June
+
+Before submitting I asked two people outside of tech/data to test the site. Neither had any context on the brief.
+
+**Friend 1 (non-technical, general user):**
+Main feedback was around colour coding — she didn't know what the colours on the charts meant and expected a legend to be immediately visible, not something you discover by hovering. She also said the site felt like it was built for someone who already understood what they were looking at.
+
+Changes made:
+- Added colour legends to all charts upfront (brand colour key on BTS chart, sentiment legend on brand cards)
+- Added descriptive subtitles to every chart explaining what the metric means in plain English
+- Renamed stat card labels to plain language ("Would Buy Again" instead of "purchase intent signal")
+- Rewrote the page subtitle to explain the 4-vs-9 brand split clearly upfront
+
+**Friend 2 (software tester):**
+More specific feedback — text contrast too low, key insight callout too small, two percentage values side by side with no labels, Y-axis scale inconsistent between charts.
+
+Changes made:
+- Darkened `--text-muted` globally from `#94a3b8` to `#64748b`
+- Bumped key insight text from `text-xs` to `text-sm`
+- Added column headers (pos. / rating / buy again) above the brand rows
+- Standardised Y-axis to 0 / 20 / 40 / 60 across all BTS charts
+
+Second round fixes after they saw the updated build:
+- Agua de Madre bar label cut off — fixed by angling X-axis labels at -35°
+- Reviewer tier cards didn't explain what Tier 1/2/3 meant — added a plain English explainer banner
+- AI Insights layout restructured — Positive Signals (light green) and Concerns (light red) moved to the bottom row so the signal is immediately readable
+- Brands page had no affordance that cards were clickable — added `›` chevrons, "Click to view details →" hints, and a visual divider between the list and detail panel
+
+**Broader takeaway:** Both reviews pointed to the same underlying issue — the dashboard was built by someone who already understood the data, and it showed. Small things like unlabelled colour bars and jargon subtitles are invisible when you're close to the work. Getting external eyes on it in the final hours was worth it.
+
+---
+
 ## What I'd do with more time
 
 1. **Competitive context comparison** — the 5 non-reviewed brands have breakthrough and momentum scores that aren't currently used in any chart. A cross-brand comparison chart using the full 9-brand set would add real commercial value.
