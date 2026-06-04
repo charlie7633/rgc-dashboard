@@ -72,7 +72,7 @@ export default function OverviewPage() {
           <div>
             <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Overview</h1>
             <p className="mt-1 text-sm" style={{ color: "var(--text-muted)" }}>
-              Functional soft drinks · 9 brands · 130 video reviews · product & brand intelligence
+              4 brands were sent to real consumers for video review · 5 additional brands are included as competitors for comparison · 130 reviews total
             </p>
           </div>
           <button onClick={() => { sessionStorage.clear(); router.push("/upload"); }}
@@ -83,10 +83,10 @@ export default function OverviewPage() {
         </div>
 
         <div className="grid grid-cols-4 gap-4 mb-6">
-          <StatCard title="Video Reviews" value={totalReviews} accent="var(--color-rgc-blue)" subtitle="4 reviewed brands" />
-          <StatCard title="Products" value={brands.reduce((s, b) => s + b.productCount, 0)} accent="var(--color-rgc-electric)" subtitle="9 brands" />
-          <StatCard title="Avg Rating" value={`${overallAvgRating} / 5`} accent="var(--color-rgc-teal)" subtitle="reviewed brands only" />
-          <StatCard title="Buy After Trying" value={`${overallBuyAfter}%`} accent="var(--color-rgc-orchid)" subtitle="purchase intent signal" />
+          <StatCard title="Video Reviews" value={totalReviews} accent="var(--color-rgc-blue)" subtitle="real consumer video reviews across 4 brands" />
+          <StatCard title="Products in Dataset" value={brands.reduce((s, b) => s + b.productCount, 0)} accent="var(--color-rgc-electric)" subtitle="across all 9 brands (4 reviewed + 5 competitors)" />
+          <StatCard title="Avg Rating" value={`${overallAvgRating} / 5`} accent="var(--color-rgc-teal)" subtitle="average score left by reviewers (out of 5)" />
+          <StatCard title="Would Buy Again" value={`${overallBuyAfter}%`} accent="var(--color-rgc-orchid)" subtitle="of reviewers said they'd buy after trying" />
         </div>
 
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -97,18 +97,18 @@ export default function OverviewPage() {
               {Object.entries(BRAND_COLOURS).map(([brand, colour]) => (
                 <span key={brand} className="flex items-center gap-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
                   <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: colour }} />
-                  {brand}
+                  {brand} <span style={{ color: "#94a3b8" }}>(reviewed)</span>
                 </span>
               ))}
               <span className="flex items-center gap-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
                 <span className="inline-block w-2.5 h-2.5 rounded-full bg-slate-200" />
-                Competitor (no review data)
+                Grey = competitor brand (no consumer reviews — included for comparison only)
               </span>
             </div>
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={btsData} margin={{ top: 0, right: 8, left: -16, bottom: 0 }}>
+            <ResponsiveContainer width="100%" height={220}>
+              <BarChart data={btsData} margin={{ top: 0, right: 8, left: -16, bottom: 40 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="name" tick={{ fontSize: 9, fill: "#64748b" }} />
+                <XAxis dataKey="name" tick={{ fontSize: 9, fill: "#64748b", angle: -35, textAnchor: "end" }} interval={0} />
                 <YAxis domain={[0, 60]} ticks={[0, 20, 40, 60]} tick={{ fontSize: 9, fill: "#64748b" }} />
                 <Tooltip contentStyle={{ fontSize: 11, borderRadius: 8 }} formatter={(v: number) => [v, "Breakthrough Score"]} />
                 <Bar dataKey="score" radius={[4, 4, 0, 0]}>
@@ -122,7 +122,16 @@ export default function OverviewPage() {
 
           <div className="rounded-2xl p-6" style={{ background: "var(--color-card)", border: "1px solid var(--color-card-border)" }}>
             <p className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>Reviewed brands at a glance</p>
-            <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>Bar = % of reviews with positive sentiment · ⭐ = average rating out of 5 · buy↑ = % who would buy again after trying</p>
+            <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>How each reviewed brand performed across all consumer video reviews</p>
+            {/* Column headers */}
+            <div className="flex items-center gap-3 mb-2 px-0">
+              <div className="w-2.5 shrink-0" />
+              <span className="text-xs w-28 shrink-0" style={{ color: "var(--text-muted)" }}></span>
+              <span className="flex-1 text-xs" style={{ color: "var(--text-muted)" }}>% positive reviews</span>
+              <span className="text-xs w-8 text-right shrink-0" style={{ color: "var(--text-muted)" }}>pos.</span>
+              <span className="text-xs w-10 text-right shrink-0" style={{ color: "var(--text-muted)" }}>rating</span>
+              <span className="text-xs w-14 text-right shrink-0" style={{ color: "var(--text-muted)" }}>buy again</span>
+            </div>
             <div className="space-y-3">
               {reviewed.map((b) => {
                 const pos = b.sentimentBreakdown["POSITIVE"] ?? 0;
@@ -136,7 +145,7 @@ export default function OverviewPage() {
                     </div>
                     <span className="text-xs w-8 text-right shrink-0 font-medium" style={{ color: BRAND_COLOURS[b.name] }}>{posPct}%</span>
                     <span className="text-xs w-10 text-right shrink-0" style={{ color: "var(--text-muted)" }}>⭐{b.avgRating}</span>
-                    <span className="text-xs w-14 text-right shrink-0" style={{ color: "var(--text-muted)" }}>{b.wouldBuyAfterRate}% buy↑</span>
+                    <span className="text-xs w-14 text-right shrink-0" style={{ color: "var(--text-muted)" }}>{b.wouldBuyAfterRate}%</span>
                   </div>
                 );
               })}
