@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { loadAll } from "@/lib/rgc-data";
+import { loadAll, BrandSummary } from "@/lib/rgc-data";
 
 export async function GET() {
   try {
     const { brandSummaries } = loadAll();
-    return NextResponse.json(brandSummaries.map((b) => ({
+    return NextResponse.json((brandSummaries as BrandSummary[]).map((b) => ({
       name: b.brand.brand_name,
       founded: b.brand.founded_year,
       city: b.brand.hq_city,
