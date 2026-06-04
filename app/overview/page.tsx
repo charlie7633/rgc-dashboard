@@ -84,7 +84,7 @@ export default function OverviewPage() {
 
         <div className="grid grid-cols-4 gap-4 mb-6">
           <StatCard title="Video Reviews" value={totalReviews} accent="var(--color-rgc-blue)" subtitle="4 reviewed brands" />
-          <StatCard title="Products" value={brands.reduce((s, b) => s + b.productCount, 0)} accent="var(--color-rgc-electric)" subtitle="9 brands · 38 products" />
+          <StatCard title="Products" value={brands.reduce((s, b) => s + b.productCount, 0)} accent="var(--color-rgc-electric)" subtitle="9 brands" />
           <StatCard title="Avg Rating" value={`${overallAvgRating} / 5`} accent="var(--color-rgc-teal)" subtitle="reviewed brands only" />
           <StatCard title="Buy After Trying" value={`${overallBuyAfter}%`} accent="var(--color-rgc-orchid)" subtitle="purchase intent signal" />
         </div>
