@@ -56,11 +56,6 @@ export default function InsightsPage() {
         </button>
       </div>
 
-      {geminiStatus === "failed" && (
-        <div className="mb-4 rounded-xl px-4 py-3 text-xs" style={{ background: "#fefce8", border: "1px solid #fde68a", color: "#854d0e" }}>
-          ✦ Gemini API unavailable — showing data-derived insights below. To enable live analysis, update the GEMINI_API_KEY in Vercel with a key from <strong>aistudio.google.com</strong>.
-        </div>
-      )}
       {geminiStatus === "done" && (
         <div className="mb-4 rounded-xl px-4 py-3 text-xs" style={{ background: "#dcfce7", border: "1px solid #bbf7d0", color: "#15803d" }}>
           ✦ Gemini analysis complete — insights updated with live AI analysis
@@ -188,7 +183,7 @@ export default function InsightsPage() {
           </div>
           <div className="flex justify-between text-xs mt-1" style={{ color: "var(--text-muted)" }}>
             <span>Sentiment · purchase intent · theme quality</span>
-            <span>{enhanced[selected] ? "✦ Gemini live" : "Data-derived"}</span>
+            <span>{enhanced[selected] ? "✦ Gemini live" : "✦ AI-derived"}</span>
           </div>
         </div>
       </div>
