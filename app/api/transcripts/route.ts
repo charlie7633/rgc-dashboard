@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { loadAll } from "@/lib/rgc-data";
+import { loadAll, EnrichedTranscript } from "@/lib/rgc-data";
 
 export async function GET() {
   try {
     const { transcripts } = loadAll();
-    return NextResponse.json(transcripts.map((t) => ({
+    return NextResponse.json(transcripts.map((t: EnrichedTranscript) => ({
       reviewId: t.reviewId,
       brand: t.brand,
       productId: t.productId,

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { loadAll } from "@/lib/rgc-data";
+import { loadAll, EnrichedTranscript } from "@/lib/rgc-data";
 
 export async function GET() {
   try {
@@ -7,7 +7,7 @@ export async function GET() {
 
     // Count reviews per product
     const reviewCounts: Record<string, { count: number; avgRating: number; ratings: number[] }> = {};
-    transcripts.forEach((t) => {
+    transcripts.forEach((t: EnrichedTranscript) => {
       if (!reviewCounts[t.productId]) reviewCounts[t.productId] = { count: 0, avgRating: 0, ratings: [] };
       reviewCounts[t.productId].count++;
       if (t.rating) reviewCounts[t.productId].ratings.push(t.rating);
